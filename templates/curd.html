@@ -2,7 +2,11 @@
 <button type="button" onclick="window.location.href='/read'">Read Data</button>
 
 <h1>Insert</h1>
-<button type="button" onclick="window.location.href='/insert'">Insert Data</button>
+<form action="/insert">
+    Name: <input name="name" type="text" /> <br>
+    Address: <input name="address" type="text" /> <br>
+    <input type="submit" />
+</form>
 
 <h1>Delete</h1>
 <h1>Update</h1>
