@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import subprocess as sp
 from pymongo import MongoClient
 from mongopass import mongopass
@@ -27,4 +27,8 @@ def read():
 
 @app.route("/insert")
 def insert():
-    return render_template("response.html")
+    name = request.args.get("name")
+    address = request.args.get("address")
+    myVal = { "name": name, "address": address }
+    x = myCollection.insert_one(myVal)
+    return render_template("response.html", res = x)
