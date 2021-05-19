@@ -22,8 +22,9 @@ def insert_val():
 def read():
     cursor = myCollection.find()
     for record in cursor:
-        print(cursor)
-    return render_template("response.html")
+        name = record["name"]
+        print(record)
+    return render_template("response.html", res = name)
 
 @app.route("/insert")
 def insert():
@@ -31,4 +32,22 @@ def insert():
     address = request.args.get("address")
     myVal = { "name": name, "address": address }
     x = myCollection.insert_one(myVal)
+    return render_template("response.html", res = x)
+
+@app.route("/delete")
+def delete():
+    name = request.args.get("name")
+    myquery = { "name": name }
+    myCollection.delete_one(myquery)
+    x = "Record delete"
+    return render_template("response.html", res = x)
+
+@app.route("/update")
+def update():
+    name = request.args.get("name")
+    new_address = request.args.get("new_address")
+    myquery = { "name": name }
+    newvalues = { "$set": { "address": new_address } }
+    myCollection.update_one(myquery, newvalues)
+    x = "Record updated"
     return render_template("response.html", res = x)
